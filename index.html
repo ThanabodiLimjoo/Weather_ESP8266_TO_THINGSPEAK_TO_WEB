@@ -1,0 +1,303 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-gH2yIJqKdNHPEq0n4Mqa/HGKIhSkIHeL5AyhkYV8i59U5AR6csBvApHHNl/vI1Bx" crossorigin="anonymous">
+    <script src="https://code.jquery.com/jquery-3.6.0.js"
+        integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk=" crossorigin="anonymous"></script>
+    <title>Weather from ThingSpeak</title>
+</head>
+
+<body>
+
+    <nav class="navbar navbar-expand navbar-light bg-light fw-bolder">
+        <div class="nav navbar-nav px-5">
+            <div class="fs-5">63104079</div>
+        </div>
+        <div class="ms-auto px-5">
+            ITD62-331
+        </div>
+    </nav>
+
+    <div class="container my-5">
+        <div class="row justify-content-center my-3">
+            <div class="col-lg-6">
+                <div class="input-group">
+                    <span class="input-group-text">Channel ID</span>
+                    <input type="text" class="form-control" id="channelIdValue" onchange="main()" value="1739928">
+                </div>
+                <small class="text-muted">Thanabodi: 1739928</small>
+            </div>
+            <div class="row justify-content-center my-3">
+                <div class="col-lg-6">
+                    <div class="input-group">
+                        <span class="input-group-text">Write API</span>
+                        <input type="text" class="form-control" id="writeAPIvalue" onchange="main()"
+                            value="8O6DD4EZQ6F6EBBF">
+                    </div>
+                    <small class="text-muted">Thanabodi: 8O6DD4EZQ6F6EBBF</small>
+                </div>
+            </div>
+            <div class="text-data mx-5 px-5">
+                <div class="fw-bolder">
+                    <div class="container border p-3 my-4 text-center ">
+                        <div class="row">
+                            <div class="fs-3 fw-bolder mb-sm-3">
+                                Weather Status from ThingSpeak
+                            </div>
+                        </div>
+                        <div class="row">
+
+                            <!-- Temp -->
+                            <div class="col">
+                                <div class="row">
+                                    <div class="col mb-sm-3">
+                                        <img src="https://cdn-icons-png.flaticon.com/512/481/481431.png" width="75">
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col mb-sm-3">
+                                        Temperature
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col" id="temperatureValue">
+                                        <iframe width="200" height="180" style="border: 1px solid #cccccc;"
+                                            src="https://thingspeak.com/channels/1739928/widgets/506159"></iframe>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Hum -->
+                            <div class="col">
+                                <div class="row">
+                                    <div class="col mb-sm-3">
+                                        <img src="https://cdn-icons-png.flaticon.com/512/727/727790.png" width="75">
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col mb-sm-3">
+                                        Humidity
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col" id="humidityValue">
+                                        <iframe width="200" height="180" style="border: 1px solid #cccccc;"
+                                            src="https://thingspeak.com/channels/1739928/widgets/504248"></iframe>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Light -->
+                            <div class="col">
+                                <div class="row">
+                                    <div class="col mb-sm-3">
+                                        <img src="https://cdn-icons-png.flaticon.com/512/841/841743.png" width="75">
+                                    </div>
+                                </div>
+                                <div class="row mb-sm-3">
+                                    <div class="col">
+                                        Light
+                                    </div>
+                                </div>
+                                <div class="row mb-sm-3">
+                                    <div class="col" id="lightValue">
+                                        <iframe width="200" height="180" style="border: 1px solid #cccccc;"
+                                            src="https://thingspeak.com/channels/1739928/widgets/506160"></iframe>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- LED -->
+                            <div class="col">
+                                <div class="row mb-sm-3">
+                                    <div class="col">
+                                        <img src="https://cdn-icons-png.flaticon.com/512/2338/2338838.png" width="75"
+                                            id="iconLED">
+                                        <!-- <img src="https://cdn-icons-png.flaticon.com/512/2338/2338767.png" width="75" id="iconLED"> light on -->
+                                    </div>
+                                </div>
+                                <div class="row mb-sm-3">
+                                    <div class="col">
+                                        LED status
+                                    </div>
+                                </div>
+                                <div class="row mb-sm-3">
+                                    <div class="col" id="ledStatus">
+                                        <iframe width="200" height="180" style="border: 1px solid #cccccc;"
+                                            src="https://thingspeak.com/channels/1739928/widgets/506162"></iframe>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div id="btnOnOff">
+                                <button class="btn btn-primary btnOnOff" onclick="turnOn()">ON</button>
+                                <button class="btn btn-danger btnOnOff" onclick="turnOff()">OFF</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="ifrme ">
+                <div class="row my-3">
+                    <div class="col d-flex justify-content-center">
+                        <iframe class="" width="450" height="260" style="border: 1px solid #cccccc;"
+                            src="https://thingspeak.com/channels/1739928/charts/1?bgcolor=%23fffcfc&color=%2345BDFF&dynamic=true&results=120&type=line"></iframe>
+                    </div>
+                    <div class="col d-flex justify-content-center">
+                        <iframe width="450" height="260" style="border: 1px solid #cccccc;"
+                            src="https://thingspeak.com/channels/1739928/charts/2?bgcolor=%23fffcfc&color=%232F4AFF&dynamic=true&results=120&type=line"></iframe>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col d-flex justify-content-center">
+                        <iframe width="450" height="260" style="border: 1px solid #cccccc;"
+                            src="https://thingspeak.com/channels/1739928/charts/3?bgcolor=%23ffffff&color=%23d62020&dynamic=true&results=120&type=line"></iframe>
+                    </div>
+                    <div class="col d-flex justify-content-center">
+                        <iframe width="450" height="260" style="border: 1px solid #cccccc;"
+                            src="https://thingspeak.com/channels/1739928/maps/channel_show"></iframe>
+                    </div>
+                </div>
+            </div>
+            <div class="row justify-content-center my-3">
+                <div class="col-lg-6">
+                    <div class="input-group">
+                        <span class="input-group-text">Amount</span>
+                        <input type="text" class="form-control" id="amountValue" onchange="main()" value="5">
+                    </div>
+                </div>
+            </div>
+            <div class="container my-3">
+                <div id="textShow" class="my-3 fs-5">
+                    Show
+                </div>
+                <table class="table table-bordered table-primary">
+                    <thead>
+                        <tr class="text-center">
+                            <th>#</th>
+                            <th>Temp</th>
+                            <th>Humidity</th>
+                            <th>Light</th>
+                            <th>Time</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                    </tbody>
+                </table>
+
+            </div>
+        </div>
+
+        <!-- How many -->
+</body>
+
+<script>
+
+    $(() => {
+        main()
+    })
+
+    main = () => {
+        $('.table tbody').empty()
+        new ThingSpeak().getAll()
+    }
+
+    turnOn = () => {
+        new ThingSpeak().turnOn()
+    }
+
+    turnOff = () => {
+        new ThingSpeak().turnOff()
+    }
+
+    class ThingSpeak {
+        constructor() {
+            // 1739928 channel thanabodi
+            this.channelIdValue = $('#channelIdValue').val()
+            this.amountValue = $('#amountValue').val()
+            this.writeAPIvalue = $('#writeAPIvalue').val()
+        }
+
+        getAll() {
+            $.ajax({
+                type: "get",
+                url: `https://api.thingspeak.com/channels/${this.channelIdValue}/feeds.json?results=${this.amountValue}`,
+                success: (data) => {
+                    $.each(data.feeds, (i, v) => {
+                        $('#textShow').html(`Show <b>${i + 1}</b> row`)
+                        var table = `<tr>
+                            <td>${i + 1}</td>
+                            <td>${parseFloat(v.field1).toFixed(2)}</td>
+                            <td>${parseFloat(v.field2).toFixed(2)}</td>
+                            <td>${v.field3}</td>
+                            <td>${v.created_at.split("T")[1].split("Z")[0]} &nbsp At ${v.created_at.split("T")[0]}</td>
+                            </tr>`
+                        $('.table tbody').append(table)
+                    });
+                },
+                error: (data) => {
+                    console.log('error');
+                }
+            })
+        }
+        turnOn() {
+            this.count = 0
+            clearInterval(this.interval)
+            this.interval = setInterval(() =>{
+                console.log(this.count);
+                if(this.count == 6){clearInterval(this.interval)}
+                this.count += 1
+                $.post('https://api.thingspeak.com/update.json',
+                    {
+                        api_key: `${this.writeAPIvalue}`,
+                        field4: 1,
+                    }, (data) => {
+                        console.log('on');
+                    }
+    
+                )
+            }, 3000)
+        }
+
+        turnOff() {
+            this.count = 0
+            clearInterval(this.interval)
+            this.interval = setInterval(() => {
+                console.log(this.count);
+                if(this.count == 6){clearInterval(this.interval)}
+                this.count += 1
+                $.post('https://api.thingspeak.com/update.json',
+                    {
+                        api_key: `${this.writeAPIvalue}`,
+                        field4: 0,
+                    }, (data) => {
+                        console.log('off');
+                    }
+    
+                )
+            }, 3000)
+        }
+    }
+
+    // test = () => {
+    //     $.post('https://api.thingspeak.com/update.json',
+    //         {
+    //             api_key: `8O6DD4EZQ6F6EBBF`,
+    //             field5: 100,
+    //         }, (data) => {
+    //             console.log('k');
+    //         }
+
+    //     )
+    // }
+
+</script>
+
+</html>
