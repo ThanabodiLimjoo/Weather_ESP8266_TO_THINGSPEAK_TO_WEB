@@ -14,10 +14,12 @@ const char* ssid = "JaNa";
 const char* pass = "123456789";
 
 void setup() {
+  pinMode(D6, OUTPUT);
   Serial.begin(115200);
   wifi_init();
   ThingSpeak.begin(client);
   dht.begin();
+  digitalWrite(D6,1);
 }
 
 void loop() {
@@ -27,9 +29,12 @@ void loop() {
     int temp = ThingSpeak.getFieldAsInt(1); // Field 1
     int hum = ThingSpeak.getFieldAsInt(2); // Field 2
     int light = ThingSpeak.getFieldAsInt(3); // Field 3
+    int led = ThingSpeak.getFieldAsInt(4); // Field 4
+    digitalWrite(D6,led);
     Serial.println("Temp: " + String(temp));
     Serial.println("Hum: " + String(hum));
     Serial.println("Light: " + String(light));
+    Serial.println("Light: " + String(led));
   }
   else{
     Serial.println("HTTP error code " + String(statusCode));
@@ -51,12 +56,14 @@ void wifi_init(){
 }
 
 void Client_Send(){
-  float temp = dht.readTemperature();
-  float hum = dht.readHumidity();
-  int light = analogRead(A0);
-  ThingSpeak.setField(1, temp);
-  ThingSpeak.setField(2, hum);
-  ThingSpeak.setField(3, light);
+  float tempSend = dht.readTemperature();
+  float humSend = dht.readHumidity();
+  int lightSend = analogRead(A0);
+  int ledSend = digitalRead(D6);
+  ThingSpeak.setField(1, tempSend);
+  ThingSpeak.setField(2, humSend);
+  ThingSpeak.setField(3, lightSend);
+  ThingSpeak.setField(4, ledSend);
   int x = ThingSpeak.writeFields(myChannelNumber, myWriteAPIKey);
   if(x == 200){
     Serial.println("Channel update successful.");
